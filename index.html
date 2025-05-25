@@ -2,94 +2,78 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Ad Soyad Sorgulama</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Key Girişi</title>
   <style>
     body {
-      background: #0f0f0f;
-      color: white;
       font-family: Arial, sans-serif;
+      background: #111 url("neonsehir1.jpeg") no-repeat center center/cover;
+      color: white;
       display: flex;
-      flex-direction: column;
+      height: 100vh;
+      justify-content: center;
       align-items: center;
-      padding-top: 50px;
+    }
+    #login {
+      background: rgba(0, 0, 0, 0.4);
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
     }
     input {
       padding: 10px;
-      margin: 5px;
+      margin-top: 10px;
+      width: 200px;
       border: none;
       border-radius: 5px;
-      width: 250px;
     }
     button {
-      padding: 10px 20px;
-      margin-top: 10px;
-      background-color: #3498db;
+      padding: 10px 15px;
+      margin-top: 15px;
+      background: #c0392b;
       border: none;
-      border-radius: 5px;
       color: white;
       cursor: pointer;
+      border-radius: 5px;
     }
     button:hover {
-      background-color: #2980b9;
+      background: #e74c3c;
     }
-    #sonuc {
-      margin-top: 20px;
-      background: #1e1e1e;
-      padding: 20px;
-      border-radius: 10px;
-      width: 90%;
-      max-width: 500px;
+    #hata {
+      color: #e74c3c;
+      display: none;
+      margin-top: 10px;
     }
   </style>
 </head>
 <body>
-  <h2>Ad Soyad ile Sorgula</h2>
-  <input type="text" id="ad" placeholder="Ad">
-  <input type="text" id="soyad" placeholder="Soyad">
-  <input type="text" id="il" placeholder="İl (isteğe bağlı)">
-  <br>
-  <button onclick="sorgula()">Sorgula</button>
 
-  <div id="sonuc"></div>
+  <div id="login">
+    <h2 style="color:white;">Giriş Yap</h2>
+    <input type="password" id="keyInput" placeholder="Key giriniz" />
+    <br />
+    <button onclick="kontrolEt()">Giriş</button>
+    <p id="hata">Yanlış key, tekrar dene!</p>
+  </div>
 
   <script>
-    function sorgula() {
-      const ad = document.getElementById("ad").value.trim();
-      const soyad = document.getElementById("soyad").value.trim();
-      const il = document.getElementById("il").value.trim();
+    const dogruKey = "drownbabafirar01"; // Yeni key burada
 
-      if (!ad || !soyad) {
-        alert("Lütfen ad ve soyad giriniz.");
-        return;
+    function kontrolEt() {
+      const girilenKey = document.getElementById("keyInput").value;
+      if (girilenKey === dogruKey) {
+        localStorage.setItem("girisYapildi", "true");
+        alert("Giriş başarılı! Yönlendiriliyorsunuz...");
+        setTimeout(() => {
+          window.location.href = "panel.html";
+        }, 1500); // 1.5 saniye sonra yönlendirme
+      } else {
+        document.getElementById("hata").style.display = "block";
       }
-
-      let url = `https://api.hexnox.pro/sowixapi/adsoyadilice.php?ad=${encodeURIComponent(ad)}&soyad=${encodeURIComponent(soyad)}`;
-      if (il) {
-        url += `&il=${encodeURIComponent(il)}`;
-      }
-
-      document.getElementById("sonuc").innerHTML = "Sorgulanıyor...";
-
-      fetch(url)
-        .then(response => response.json())
-        .then(data => {
-          if (data && data.length > 0) {
-            let html = "<h3>Sonuçlar:</h3><ul>";
-            data.forEach(kisi => {
-              html += `<li>${kisi.ad} ${kisi.soyad} - TC: ${kisi.tc} - İl: ${kisi.il || "Belirtilmemiş"}</li>`;
-            });
-            html += "</ul>";
-            document.getElementById("sonuc").innerHTML = html;
-          } else {
-            document.getElementById("sonuc").innerHTML = "Sonuç bulunamadı.";
-          }
-        })
-        .catch(error => {
-          console.error("Hata:", error);
-          document.getElementById("sonuc").innerHTML = "Sorgulama sırasında hata oluştu.";
-        });
     }
   </script>
+
 </body>
 </html>
