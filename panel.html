@@ -2,22 +2,54 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Panel</title>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+      transition: background-color 0.4s ease, color 0.4s ease;
+    }
     body {
       font-family: 'Segoe UI', sans-serif;
-      background: #0f0f0f;
-      color: white;
+      background: var(--bg);
+      color: var(--text);
+    }
+    :root {
+      --bg: #0f0f0f;
+      --text: white;
+      --sidebar-bg: rgba(43, 43, 61, 0.4);
+      --card-bg: #1e1e2f;
+      --card-shadow: #f0f;
+      --accent: #ff4444;
+      --accent-hover: #0f0;
+      --logout-bg: #e74c3c;
+      --logout-hover: #c0392b;
+      --rainbow: linear-gradient(45deg, red, orange, yellow, green, cyan, blue, violet);
+    }
+    body.light {
+      --bg: #f5f5f5;
+      --text: #222;
+      --sidebar-bg: rgba(200, 200, 220, 0.8);
+      --card-bg: #fff;
+      --card-shadow: #c14cc1;
+      --accent: #cc0000;
+      --accent-hover: #008800;
+      --logout-bg: #d9534f;
+      --logout-hover: #b52b28;
+      --rainbow: linear-gradient(45deg, red, orange, yellow, green, cyan, blue, violet);
+    }
+
+    @keyframes slideIn {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
 
     .menu-toggle-container {
       position: fixed;
       top: 20px;
       left: 20px;
-      z-index: 1001;
+      z-index: 1002;
       display: flex;
       align-items: center;
       gap: 10px;
@@ -25,14 +57,52 @@
       background: rgba(0,0,0,0.4);
       padding: 10px 15px;
       border-radius: 10px;
-      color: white;
+      color: var(--text);
       font-size: 20px;
       font-weight: 600;
+      user-select: none;
+    }
+
+    .toggle-switch {
+      margin-left: 10px;
+      position: relative;
+      width: 50px;
+      height: 26px;
+    }
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+      position: absolute;
+      cursor: pointer;
+    }
+    .slider {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #ccc;
+      border-radius: 34px;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 20px;
+      width: 20px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      border-radius: 50%;
+      transition: transform 0.4s ease;
+    }
+    input:checked + .slider {
+      background-color: #4caf50;
+    }
+    input:checked + .slider:before {
+      transform: translateX(24px);
     }
 
     .sidebar {
       width: 280px;
-      background: rgba(43, 43, 61, 0.4);
+      background: var(--sidebar-bg);
       height: 100vh;
       position: fixed;
       top: 0;
@@ -41,110 +111,105 @@
       padding: 80px 20px 20px 20px;
       z-index: 1000;
       overflow-y: auto;
+      color: var(--text);
     }
-
     .sidebar.active { left: 0; }
-
-    .sidebar a,
-    .logout {
+    .sidebar a, .logout {
       display: block;
-      color: #fff;
+      color: var(--text);
       padding: 10px 0;
       text-decoration: none;
       border-bottom: 1px solid #444;
       font-size: 16px;
       cursor: pointer;
     }
-
-    .sidebar a:hover { color: #0f0; }
-
+    .sidebar a:hover { color: var(--accent-hover); }
     .logout {
-      background: #e74c3c;
+      background: var(--logout-bg);
       margin-top: 20px;
       border-radius: 6px;
       text-align: center;
     }
-
-    .logout:hover { background: #c0392b; }
+    .logout:hover { background: var(--logout-hover); }
 
     .panel {
       padding: 100px 20px 20px 20px;
       z-index: 1;
     }
 
-    .card {
-      background: #1e1e2f;
-      margin-bottom: 25px;
-      padding: 20px;
+    .card,
+    .stat-card,
+    .realsowix-box {
+      opacity: 0;
+      background: var(--card-bg);
       border-radius: 10px;
-      box-shadow: 0 0 10px #f0f;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 10px var(--card-shadow);
+      will-change: transform, opacity;
+      animation: slideIn 0.8s ease forwards;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover,
+    .stat-card:hover,
+    .realsowix-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 20px var(--card-shadow);
     }
 
     .card h3, .card p {
-      color: #ff4444;
+      color: var(--accent);
       font-size: 15px;
     }
 
     .stat-card {
-      background: #1e1e2f;
-      border-radius: 10px;
-      padding: 20px;
-      margin-bottom: 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      color: var(--text);
     }
-
     .stat-title {
       color: #bbbafc;
       font-size: 20px;
     }
-
     .stat-number {
       font-size: 26px;
       font-weight: bold;
     }
 
     .realsowix-box {
-      background: #1e1e2f;
-      border-radius: 10px;
-      padding: 20px;
       display: flex;
       gap: 20px;
       align-items: center;
-      margin-bottom: 20px;
+      color: var(--text);
     }
-
     .realsowix-box img {
       width: 80px;
       height: 80px;
       border-radius: 50%;
-      border: 3px solid white;
+      border: 3px solid var(--text);
     }
-
     .realsowix-box h3 {
       color: #00ff88;
       margin-bottom: 10px;
     }
-
     .realsowix-box .details {
       display: flex;
       gap: 25px;
       flex-wrap: wrap;
+      color: var(--text);
     }
-
     .realsowix-box .details p {
-      color: white;
       font-size: 14px;
     }
-
     .realsowix-box .details span {
       font-weight: bold;
       font-size: 18px;
     }
 
     .rainbow {
-      background: linear-gradient(45deg, red, orange, yellow, green, cyan, blue, violet);
+      background: var(--rainbow);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       font-weight: bold;
@@ -159,15 +224,28 @@
 <body>
 
 <script>
-  const giris = localStorage.getItem("girisYapildi") === "true" || sessionStorage.getItem("girisYapildi") === "true";
-  if (!giris) {
-    window.location.href = "index.html";
+  if (localStorage.getItem('tema') === 'light') {
+    document.body.classList.add('light');
+  }
+
+  function temaDegistir(checkbox) {
+    if (checkbox.checked) {
+      document.body.classList.add('light');
+      localStorage.setItem('tema', 'light');
+    } else {
+      document.body.classList.remove('light');
+      localStorage.setItem('tema', 'dark');
+    }
   }
 </script>
 
 <div class="menu-toggle-container" id="menuBtn">
   <i class="fas fa-bars"></i>
   <span>Panel</span>
+  <label class="toggle-switch" title="Dark/Light Modu Değiştir">
+    <input type="checkbox" id="temaToggle" onchange="temaDegistir(this)" />
+    <span class="slider"></span>
+  </label>
 </div>
 
 <div class="sidebar" id="sidebar">
@@ -183,8 +261,6 @@
 </div>
 
 <div class="panel" id="panel">
-
-  <!-- Sistem Durumu en üste -->
   <div class="card">
     <h3>Sistem Durumu</h3>
     <div style="display: flex; overflow-x: auto; gap: 15px;">
@@ -199,7 +275,6 @@
     </div>
   </div>
 
-  <!-- leodrown kutusu -->
   <div class="realsowix-box">
     <img src="mcqueen.jpg" alt="leodrown" />
     <div>
@@ -213,7 +288,6 @@
     </div>
   </div>
 
-  <!-- Kullanıcı kutuları -->
   <div class="stat-card">
     <p class="stat-title">Kullanıcı sayısı</p>
     <p class="stat-number">1</p>
@@ -257,6 +331,11 @@
   ];
   const randomIndex = Math.floor(Math.random() * mesajlar.length);
   document.getElementById("realsowix-msg").textContent = mesajlar[randomIndex];
+
+  window.addEventListener('DOMContentLoaded', () => {
+    const temaToggle = document.getElementById('temaToggle');
+    temaToggle.checked = document.body.classList.contains('light');
+  });
 </script>
 
 </body>
