@@ -2,78 +2,171 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Key Girişi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panel</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: Arial, sans-serif;
-      background: #111 url("neonsehir1.jpeg") no-repeat center center/cover;
+      font-family: 'Segoe UI', sans-serif;
+      background: #0f0f0f;
       color: white;
+    }
+    .header {
+      background: #1e1e2f;
+      padding: 15px 20px;
       display: flex;
-      height: 100vh;
-      justify-content: center;
       align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 1001;
     }
-    #login {
-      background: rgba(0, 0, 0, 0.4);
-      padding: 20px;
-      border-radius: 12px;
-      text-align: center;
-      backdrop-filter: blur(8px);
-      box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
-    }
-    input {
-      padding: 10px;
-      margin-top: 10px;
-      width: 200px;
-      border: none;
-      border-radius: 5px;
-    }
-    button {
-      padding: 10px 15px;
-      margin-top: 15px;
-      background: #c0392b;
-      border: none;
-      color: white;
+    .menu-toggle {
+      font-size: 24px;
       cursor: pointer;
-      border-radius: 5px;
+      position: fixed;
+      top: 15px;
+      right: 20px;
+      z-index: 1100;
     }
-    button:hover {
+    .sidebar {
+      width: 250px;
+      background: rgba(43, 43, 61, 0.95);
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: -100%;
+      transition: left 0.3s ease;
+      padding: 20px;
+      z-index: 1000;
+    }
+    .sidebar.active {
+      left: 0;
+    }
+    .sidebar a {
+      display: block;
+      color: #fff;
+      padding: 10px 0;
+      text-decoration: none;
+      border-bottom: 1px solid #444;
+    }
+    .panel {
+      padding: 20px;
+      transition: filter 0.3s ease;
+    }
+    .sidebar.active ~ .panel {
+      filter: blur(2px);
+    }
+    .card {
+      background: #1e1e2f;
+      margin-bottom: 20px;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #f0f;
+    }
+    .card h3, .card p {
+      color: #ff4444;
+      font-size: 15px;
+    }
+    .highlight {
+      background: linear-gradient(45deg, #f00, #ff0, #0f0, #0ff, #00f, #f0f);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: bold;
+    }
+    audio {
+      display: block;
+      margin: 20px auto;
+    }
+    .logout {
       background: #e74c3c;
+      padding: 10px;
+      margin-top: 20px;
+      text-align: center;
+      border-radius: 6px;
+      cursor: pointer;
     }
-    #hata {
-      color: #e74c3c;
-      display: none;
-      margin-top: 10px;
+    .logout:hover {
+      background: #c0392b;
     }
   </style>
 </head>
 <body>
 
-  <div id="login">
-    <h2 style="color:white;">Giriş Yap</h2>
-    <input type="password" id="keyInput" placeholder="Key giriniz" />
-    <br />
-    <button onclick="kontrolEt()">Giriş</button>
-    <p id="hata">Yanlış key, tekrar dene!</p>
+<script>
+  const giris = localStorage.getItem("girisYapildi") === "true" || sessionStorage.getItem("girisYapildi") === "true";
+  if (!giris) {
+    window.location.href = "index.html";
+  }
+</script>
+
+<div class="header">
+  <div>Panel</div>
+</div>
+<i class="fas fa-chevron-right menu-toggle" id="menuBtn"></i>
+
+<div class="sidebar" id="sidebar">
+  <a href="#">Instagram İşlemleri</a>
+  <a href="#">WhatsApp İşlemleri</a>
+  <a href="#">Telefon İşlemleri</a>
+  <a href="#">Galeri İşlemleri</a>
+  <a href="#">TikTok İşlemleri</a>
+  <a href="#">Snapchat İşlemleri</a>
+  <a href="#">YouTube İşlemleri</a>
+  <a href="#">Facebook İşlemleri</a>
+  <div class="logout" onclick="cikisYap()">Çıkış Yap</div>
+</div>
+
+<div class="panel" id="panel">
+  <div class="card">
+    <h3>Toplam Kullanıcılar</h3>
+    <p>1</p>
+  </div>
+  <div class="card">
+    <h3>Üyelik</h3>
+    <p>Admin</p>
+  </div>
+  <div class="card">
+    <h3>Duyuru Paneli</h3>
+    <p>
+      <strong>V1.0 yayında!</strong><br><br>
+      Neler eklendi?<br>
+      - Şarkı eklendi.<br>
+      - Güvenlik arttırıldı.<br>
+      - Çıkış düğmesi eklendi.<br>
+      - Buglar fixlendi.<br><br>
+      <strong>V1.1'de eklenecekler:</strong><br>
+      - Sponsorluk.<br>
+      - Reklamlar.<br>
+      - İşlemler çalışacak, şu anda bakımda.<br>
+      - Chat eklenecek.<br>
+      - Kullanıcı sistemi gelecek.<br>
+      - Ve daha fazlası!<br><br>
+      Daha fazla bilgi için Instagram: <span class="highlight">leo.drown</span>
+    </p>
   </div>
 
-  <script>
-    const dogruKey = "drownbabafirar01"; // Yeni key burada
+  <audio autoplay loop controls>
+    <source src="organize.mp3" type="audio/mpeg">
+    Tarayıcınız audio etiketini desteklemiyor.
+  </audio>
+</div>
 
-    function kontrolEt() {
-      const girilenKey = document.getElementById("keyInput").value;
-      if (girilenKey === dogruKey) {
-        localStorage.setItem("girisYapildi", "true");
-        alert("Giriş başarılı! Yönlendiriliyorsunuz...");
-        setTimeout(() => {
-          window.location.href = "panel.html";
-        }, 1500); // 1.5 saniye sonra yönlendirme
-      } else {
-        document.getElementById("hata").style.display = "block";
-      }
-    }
-  </script>
+<script>
+  const menuBtn = document.getElementById("menuBtn");
+  const sidebar = document.getElementById("sidebar");
+
+  menuBtn.addEventListener("click", () => {
+    sidebar.classList.toggle("active");
+  });
+
+  function cikisYap() {
+    localStorage.removeItem("girisYapildi");
+    sessionStorage.removeItem("girisYapildi");
+    window.location.href = "index.html";
+  }
+</script>
 
 </body>
 </html>
