@@ -223,6 +223,13 @@
 </head>
 <body>
 
+<!-- Giriş kontrolü eklendi hemen en başa -->
+<script>
+  if (!localStorage.getItem("girisYapildi")) {
+    window.location.href = "index.html";
+  }
+</script>
+
 <script>
   if (localStorage.getItem('tema') === 'light') {
     document.body.classList.add('light');
