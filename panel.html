@@ -11,6 +11,7 @@
       font-family: 'Segoe UI', sans-serif;
       background: #0f0f0f;
       color: white;
+      overflow: auto; /* başlangıçta kaydırılabilir */
     }
 
     .menu-toggle-container {
@@ -32,7 +33,7 @@
 
     .sidebar {
       width: 280px;
-      background: rgba(43, 43, 61, 0.95);
+      background: rgba(43, 43, 61, 0.4); /* Şeffaf ama bulanık değil */
       height: 100vh;
       position: fixed;
       top: 0;
@@ -40,7 +41,6 @@
       transition: left 0.4s ease;
       padding: 80px 20px 20px 20px;
       z-index: 1000;
-      backdrop-filter: blur(8px);
       overflow-y: auto;
     }
 
@@ -107,6 +107,7 @@
 </head>
 <body>
 
+  <!-- Giriş kontrol -->
   <script>
     const giris = localStorage.getItem("girisYapildi") === "true" || sessionStorage.getItem("girisYapildi") === "true";
     if (!giris) {
@@ -114,11 +115,13 @@
     }
   </script>
 
+  <!-- Menü butonu -->
   <div class="menu-toggle-container" id="menuBtn">
     <i class="fas fa-bars"></i>
     <span>Panel</span>
   </div>
 
+  <!-- Sidebar -->
   <div class="sidebar" id="sidebar">
     <a href="#">Instagram İşlemleri</a>
     <a href="#">WhatsApp İşlemleri</a>
@@ -131,6 +134,7 @@
     <div class="logout" onclick="cikisYap()">Çıkış Yap</div>
   </div>
 
+  <!-- Ana içerik -->
   <div class="panel" id="panel">
     <div class="card">
       <h3>Toplam Kullanıcılar</h3>
@@ -166,12 +170,14 @@
     </audio>
   </div>
 
+  <!-- JS -->
   <script>
     const menuBtn = document.getElementById("menuBtn");
     const sidebar = document.getElementById("sidebar");
 
     menuBtn.addEventListener("click", () => {
-      sidebar.classList.toggle("active");
+      const isOpen = sidebar.classList.toggle("active");
+      document.body.style.overflow = isOpen ? "hidden" : "auto";
     });
 
     function cikisYap() {
