@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Panel</title>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -13,31 +13,40 @@
       color: white;
       position: relative;
     }
-    .header {
-      background: #1e1e2f;
-      padding: 15px 20px;
+    .menu-toggle-container {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 999;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      z-index: 10;
-      position: relative;
-    }
-    .menu-toggle {
-      font-size: 20px;
+      gap: 10px;
       cursor: pointer;
-      margin-left: 10px;
+      background: rgba(0,0,0,0.4);
+      padding: 10px 15px;
+      border-radius: 10px;
+      user-select: none;
+      margin-bottom: 60px;
+      color: white;
+      font-size: 20px;
+      font-weight: 600;
     }
     .sidebar {
-      width: 250px;
-      background: rgba(43, 43, 61, 0.9); /* şeffaflık burada */
+      width: 280px;
+      background: rgba(43, 43, 61, 0.3);
       height: 100vh;
       position: fixed;
       top: 0;
-      left: -250px;
-      transition: left 0.3s ease;
-      padding: 20px;
-      z-index: 999;
+      left: -280px;
+      transition: left 0.4s ease;
+      padding: 80px 20px 20px 20px; /* Üst boşluk menü için ayarlandı */
+      z-index: 998;
       backdrop-filter: blur(8px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      color: white;
     }
     .sidebar.active { left: 0; }
     .sidebar a {
@@ -46,12 +55,31 @@
       padding: 10px 0;
       text-decoration: none;
       border-bottom: 1px solid #444;
+      font-size: 16px;
+    }
+    .sidebar a:hover {
+      color: #0f0;
+    }
+    .logout {
+      background: #e74c3c;
+      padding: 10px;
+      margin-top: 20px;
+      text-align: center;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .logout:hover {
+      background: #c0392b;
     }
     .panel {
       padding: 20px;
-      transition: margin-left 0.3s ease;
+      transition: margin-left 0.4s ease;
       position: relative;
       z-index: 1;
+      margin-left: 0;
+    }
+    .panel.shifted {
+      margin-left: 280px;
     }
     .card {
       background: #1e1e2f;
@@ -74,25 +102,6 @@
       display: block;
       margin: 20px auto;
     }
-    .logout {
-      background: #e74c3c;
-      padding: 10px;
-      margin-top: 20px;
-      text-align: center;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-    .logout:hover {
-      background: #c0392b;
-    }
-    .header-left {
-      display: flex;
-      align-items: center;
-    }
-    .header-left h2 {
-      margin: 0;
-      font-size: 20px;
-    }
   </style>
 </head>
 <body>
@@ -104,11 +113,9 @@
     }
   </script>
 
-  <div class="header">
-    <div class="header-left">
-      <h2>Panel</h2>
-      <i class="fas fa-bars menu-toggle" id="menuBtn"></i>
-    </div>
+  <div class="menu-toggle-container" id="menuBtn">
+    <i class="fas fa-bars"></i>
+    <span>Panel</span>
   </div>
 
   <div class="sidebar" id="sidebar">
@@ -152,7 +159,7 @@
       </p>
     </div>
     <audio autoplay loop controls>
-      <source src="organize.mp3" type="audio/mpeg">
+      <source src="organize.mp3" type="audio/mpeg" />
       Tarayıcınız audio etiketini desteklemiyor.
     </audio>
   </div>
@@ -160,9 +167,11 @@
   <script>
     const menuBtn = document.getElementById("menuBtn");
     const sidebar = document.getElementById("sidebar");
+    const panel = document.getElementById("panel");
 
     menuBtn.addEventListener("click", () => {
       sidebar.classList.toggle("active");
+      panel.classList.toggle("shifted");
     });
 
     function cikisYap() {
@@ -171,5 +180,6 @@
       window.location.href = "index.html";
     }
   </script>
+
 </body>
 </html>
