@@ -11,7 +11,6 @@
       font-family: 'Segoe UI', sans-serif;
       background: #0f0f0f;
       color: white;
-      overflow: auto; /* başlangıçta kaydırılabilir */
     }
 
     .menu-toggle-container {
@@ -33,7 +32,7 @@
 
     .sidebar {
       width: 280px;
-      background: rgba(43, 43, 61, 0.4); /* Şeffaf ama bulanık değil */
+      background: rgba(43, 43, 61, 0.4);
       height: 100vh;
       position: fixed;
       top: 0;
@@ -44,9 +43,7 @@
       overflow-y: auto;
     }
 
-    .sidebar.active {
-      left: 0;
-    }
+    .sidebar.active { left: 0; }
 
     .sidebar a,
     .logout {
@@ -59,9 +56,7 @@
       cursor: pointer;
     }
 
-    .sidebar a:hover {
-      color: #0f0;
-    }
+    .sidebar a:hover { color: #0f0; }
 
     .logout {
       background: #e74c3c;
@@ -70,9 +65,7 @@
       text-align: center;
     }
 
-    .logout:hover {
-      background: #c0392b;
-    }
+    .logout:hover { background: #c0392b; }
 
     .panel {
       padding: 100px 20px 20px 20px;
@@ -81,7 +74,7 @@
 
     .card {
       background: #1e1e2f;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
       padding: 20px;
       border-radius: 10px;
       box-shadow: 0 0 10px #f0f;
@@ -92,8 +85,66 @@
       font-size: 15px;
     }
 
-    .highlight {
-      background: linear-gradient(45deg, #f00, #ff0, #0f0, #0ff, #00f, #f0f);
+    .stat-card {
+      background: #1e1e2f;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .stat-title {
+      color: #bbbafc;
+      font-size: 20px;
+    }
+
+    .stat-number {
+      font-size: 26px;
+      font-weight: bold;
+    }
+
+    .realsowix-box {
+      background: #1e1e2f;
+      border-radius: 10px;
+      padding: 20px;
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .realsowix-box img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 3px solid white;
+    }
+
+    .realsowix-box h3 {
+      color: #00ff88;
+      margin-bottom: 10px;
+    }
+
+    .realsowix-box .details {
+      display: flex;
+      gap: 25px;
+      flex-wrap: wrap;
+    }
+
+    .realsowix-box .details p {
+      color: white;
+      font-size: 14px;
+    }
+
+    .realsowix-box .details span {
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .rainbow {
+      background: linear-gradient(45deg, red, orange, yellow, green, cyan, blue, violet);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       font-weight: bold;
@@ -107,85 +158,106 @@
 </head>
 <body>
 
-  <!-- Giriş kontrol -->
-  <script>
-    const giris = localStorage.getItem("girisYapildi") === "true" || sessionStorage.getItem("girisYapildi") === "true";
-    if (!giris) {
-      window.location.href = "index.html";
-    }
-  </script>
+<script>
+  const giris = localStorage.getItem("girisYapildi") === "true" || sessionStorage.getItem("girisYapildi") === "true";
+  if (!giris) {
+    window.location.href = "index.html";
+  }
+</script>
 
-  <!-- Menü butonu -->
-  <div class="menu-toggle-container" id="menuBtn">
-    <i class="fas fa-bars"></i>
-    <span>Panel</span>
+<div class="menu-toggle-container" id="menuBtn">
+  <i class="fas fa-bars"></i>
+  <span>Panel</span>
+</div>
+
+<div class="sidebar" id="sidebar">
+  <a href="#">Instagram İşlemleri</a>
+  <a href="#">WhatsApp İşlemleri</a>
+  <a href="#">Telefon İşlemleri</a>
+  <a href="#">Galeri İşlemleri</a>
+  <a href="#">TikTok İşlemleri</a>
+  <a href="#">Snapchat İşlemleri</a>
+  <a href="#">YouTube İşlemleri</a>
+  <a href="#">Facebook İşlemleri</a>
+  <div class="logout" onclick="cikisYap()">Çıkış Yap</div>
+</div>
+
+<div class="panel" id="panel">
+
+  <!-- Sistem Durumu en üste -->
+  <div class="card">
+    <h3>Sistem Durumu</h3>
+    <div style="display: flex; overflow-x: auto; gap: 15px;">
+      <div style="min-width: 200px; background: rgba(255,255,255,0.05); padding: 20px; border-radius: 10px;">
+        <h4 style="color:#bbbafc;"><i class="fas fa-info-circle"></i> Durum</h4>
+        <p style="color: lightgreen;"><i class="fas fa-check-circle"></i> Sistem Çalışıyor</p>
+      </div>
+      <div style="min-width: 200px; background: rgba(255,255,255,0.05); padding: 20px; border-radius: 10px;">
+        <h4 style="color:#bbbafc;"><i class="fas fa-comment-dots"></i> Açıklama</h4>
+        <p>Her şey yolunda</p>
+      </div>
+    </div>
   </div>
 
-  <!-- Sidebar -->
-  <div class="sidebar" id="sidebar">
-    <a href="#">Instagram İşlemleri</a>
-    <a href="#">WhatsApp İşlemleri</a>
-    <a href="#">Telefon İşlemleri</a>
-    <a href="#">Galeri İşlemleri</a>
-    <a href="#">TikTok İşlemleri</a>
-    <a href="#">Snapchat İşlemleri</a>
-    <a href="#">YouTube İşlemleri</a>
-    <a href="#">Facebook İşlemleri</a>
-    <div class="logout" onclick="cikisYap()">Çıkış Yap</div>
+  <!-- leodrown kutusu -->
+  <div class="realsowix-box">
+    <img src="mcqueen.jpg" alt="leodrown" />
+    <div>
+      <h3>leodrown</h3>
+      <p id="realsowix-msg" style="color:#bbbafc; font-size: 16px; margin-bottom: 10px;"></p>
+      <div class="details">
+        <p>Sorgu sayısı: <span>36105</span></p>
+        <p>Kalan gün: <span>477681</span></p>
+        <p>Üyelik tipi: <span class="rainbow">Premium</span></p>
+      </div>
+    </div>
   </div>
 
-  <!-- Ana içerik -->
-  <div class="panel" id="panel">
-    <div class="card">
-      <h3>Toplam Kullanıcılar</h3>
-      <p>1</p>
-    </div>
-    <div class="card">
-      <h3>Üyelik</h3>
-      <p>Admin</p>
-    </div>
-    <div class="card">
-      <h3>Duyuru Paneli</h3>
-      <p>
-        <strong>V1.0 yayında!</strong><br><br>
-        Neler eklendi?<br>
-        - Şarkı eklendi.<br>
-        - Güvenlik arttırıldı.<br>
-        - Çıkış düğmesi eklendi.<br>
-        - Buglar fixlendi.<br><br>
-        <strong>V1.1'de eklenecekler:</strong><br>
-        - Sponsorluk.<br>
-        - Reklamlar.<br>
-        - İşlemler çalışacak, şu anda bakımda.<br>
-        - Chat eklenecek.<br>
-        - Kullanıcı sistemi gelecek.<br>
-        - Ve daha fazlası!<br><br>
-        Daha fazla bilgi için Instagram: <span class="highlight">leo.drown</span>
-      </p>
-    </div>
-
-    <audio autoplay loop controls>
-      <source src="organize.mp3" type="audio/mpeg" />
-      Tarayıcınız audio etiketini desteklemiyor.
-    </audio>
+  <!-- Kullanıcı kutuları -->
+  <div class="stat-card">
+    <p class="stat-title">Kullanıcı sayısı</p>
+    <p class="stat-number">1</p>
+  </div>
+  <div class="stat-card">
+    <p class="stat-title">Premium sayısı</p>
+    <p class="stat-number">1</p>
+  </div>
+  <div class="stat-card">
+    <p class="stat-title">Banlı kullanıcı sayısı</p>
+    <p class="stat-number">0</p>
   </div>
 
-  <!-- JS -->
-  <script>
-    const menuBtn = document.getElementById("menuBtn");
-    const sidebar = document.getElementById("sidebar");
+  <audio autoplay loop controls>
+    <source src="organize.mp3" type="audio/mpeg" />
+    Tarayıcınız audio etiketini desteklemiyor.
+  </audio>
+</div>
 
-    menuBtn.addEventListener("click", () => {
-      const isOpen = sidebar.classList.toggle("active");
-      document.body.style.overflow = isOpen ? "hidden" : "auto";
-    });
+<script>
+  const menuBtn = document.getElementById("menuBtn");
+  const sidebar = document.getElementById("sidebar");
 
-    function cikisYap() {
-      localStorage.removeItem("girisYapildi");
-      sessionStorage.removeItem("girisYapildi");
-      window.location.href = "index.html";
-    }
-  </script>
+  menuBtn.addEventListener("click", () => {
+    const isOpen = sidebar.classList.toggle("active");
+    document.body.style.overflow = isOpen ? "hidden" : "auto";
+  });
+
+  function cikisYap() {
+    localStorage.removeItem("girisYapildi");
+    sessionStorage.removeItem("girisYapildi");
+    window.location.href = "index.html";
+  }
+
+  const mesajlar = [
+    "Biz yapay zekayız kardeş, gerizekalı değiliz",
+    "Komut ver yeter, işi biz hallederiz",
+    "Kod bizim dilimizdir",
+    "Zekamız sistemlere yön verir",
+    "Her şey bizim kontrolümüzde"
+  ];
+  const randomIndex = Math.floor(Math.random() * mesajlar.length);
+  document.getElementById("realsowix-msg").textContent = mesajlar[randomIndex];
+</script>
 
 </body>
 </html>
