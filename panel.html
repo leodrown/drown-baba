@@ -37,214 +37,215 @@
       --logout-bg: #d9534f;
       --logout-hover: #b52b28;
       --rainbow: linear-gradient(45deg, red, orange, yellow, green, cyan, blue, violet);
-    }@keyframes slideIn {
-  0% { opacity: 0; transform: translateY(30px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
+    }
+    @keyframes slideIn {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
 
-.menu-toggle-container {
-  position: fixed;
-  top: 20px;
-  left: 20px;
-  z-index: 1002;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
-  background: rgba(0,0,0,0.4);
-  padding: 10px 15px;
-  border-radius: 10px;
-  color: var(--text);
-  font-size: 20px;
-  font-weight: 600;
-  user-select: none;
-}
+    .menu-toggle-container {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1002;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      background: rgba(0,0,0,0.4);
+      padding: 10px 15px;
+      border-radius: 10px;
+      color: var(--text);
+      font-size: 20px;
+      font-weight: 600;
+      user-select: none;
+    }
 
-.toggle-switch {
-  margin-left: 10px;
-  position: relative;
-  width: 50px;
-  height: 26px;
-}
-.toggle-switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-  position: absolute;
-  cursor: pointer;
-}
-.slider {
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background-color: #ccc;
-  border-radius: 34px;
-}
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 20px;
-  width: 20px;
-  left: 3px;
-  bottom: 3px;
-  background-color: white;
-  border-radius: 50%;
-  transition: transform 0.4s ease;
-}
-input:checked + .slider {
-  background-color: #4caf50;
-}
-input:checked + .slider:before {
-  transform: translateX(24px);
-}
+    .toggle-switch {
+      margin-left: 10px;
+      position: relative;
+      width: 50px;
+      height: 26px;
+    }
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+      position: absolute;
+      cursor: pointer;
+    }
+    .slider {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #ccc;
+      border-radius: 34px;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 20px;
+      width: 20px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      border-radius: 50%;
+      transition: transform 0.4s ease;
+    }
+    input:checked + .slider {
+      background-color: #4caf50;
+    }
+    input:checked + .slider:before {
+      transform: translateX(24px);
+    }
 
-.sidebar {
-  width: 280px;
-  background: var(--sidebar-bg);
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  left: -280px;
-  transition: left 0.4s ease;
-  padding: 80px 20px 20px 20px;
-  z-index: 1000;
-  overflow-y: auto;
-  color: var(--text);
-}
-.sidebar.active { left: 0; }
-.section-title {
-  font-weight: bold;
-  margin-top: 20px;
-  margin-bottom: 10px;
-  color: #aaa;
-  font-size: 14px;
-}
-.menu {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-.menu li {
-  padding: 10px 15px;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-.menu li:hover {
-  background-color: #33334d;
-}
-.menu li a {
-  text-decoration: none;
-  color: inherit;
-  display: block;
-}
-.dropdown {
-  display: none;
-  padding-left: 20px;
-}
-.arrow {
-  float: right;
-}
-.logout {
-  background: var(--logout-bg);
-  margin-top: 20px;
-  border-radius: 6px;
-  text-align: center;
-  color: white;
-  padding: 10px 0;
-  cursor: pointer;
-}
-.logout:hover { background: var(--logout-hover); }
+    .sidebar {
+      width: 280px;
+      background: var(--sidebar-bg);
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: -280px;
+      transition: left 0.4s ease;
+      padding: 80px 20px 20px 20px;
+      z-index: 1000;
+      overflow-y: auto;
+      color: var(--text);
+    }
+    .sidebar.active { left: 0; }
+    .section-title {
+      font-weight: bold;
+      margin-top: 20px;
+      margin-bottom: 10px;
+      color: #aaa;
+      font-size: 14px;
+    }
+    .menu {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .menu li {
+      padding: 10px 15px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .menu li:hover {
+      background-color: #33334d;
+    }
+    .menu li a {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .dropdown {
+      display: none;
+      padding-left: 20px;
+    }
+    .arrow {
+      float: right;
+    }
+    .logout {
+      background: var(--logout-bg);
+      margin-top: 20px;
+      border-radius: 6px;
+      text-align: center;
+      color: white;
+      padding: 10px 0;
+      cursor: pointer;
+    }
+    .logout:hover { background: var(--logout-hover); }
 
-.panel {
-  padding: 100px 20px 20px 20px;
-  z-index: 1;
-}
+    .panel {
+      padding: 100px 20px 20px 20px;
+      z-index: 1;
+    }
 
-.card,
-.stat-card,
-.realsowix-box {
-  opacity: 0;
-  background: var(--card-bg);
-  border-radius: 10px;
-  padding: 20px;
-  margin-bottom: 20px;
-  box-shadow: 0 0 10px var(--card-shadow);
-  will-change: transform, opacity;
-  animation: slideIn 0.8s ease forwards;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
+    .card,
+    .stat-card,
+    .realsowix-box {
+      opacity: 0;
+      background: var(--card-bg);
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 10px var(--card-shadow);
+      will-change: transform, opacity;
+      animation: slideIn 0.8s ease forwards;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
 
-.card:hover,
-.stat-card:hover,
-.realsowix-box:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 0 20px var(--card-shadow);
-}
+    .card:hover,
+    .stat-card:hover,
+    .realsowix-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 20px var(--card-shadow);
+    }
 
-.card h3, .card p {
-  color: var(--accent);
-  font-size: 15px;
-}
+    .card h3, .card p {
+      color: var(--accent);
+      font-size: 15px;
+    }
 
-.stat-card {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: var(--text);
-}
-.stat-title {
-  color: #bbbafc;
-  font-size: 20px;
-}
-.stat-number {
-  font-size: 26px;
-  font-weight: bold;
-}
+    .stat-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--text);
+    }
+    .stat-title {
+      color: #bbbafc;
+      font-size: 20px;
+    }
+    .stat-number {
+      font-size: 26px;
+      font-weight: bold;
+    }
 
-.realsowix-box {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-  color: var(--text);
-}
-.realsowix-box img {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  border: 3px solid var(--text);
-}
-.realsowix-box h3 {
-  color: #00ff88;
-  margin-bottom: 10px;
-}
-.realsowix-box .details {
-  display: flex;
-  gap: 25px;
-  flex-wrap: wrap;
-  color: var(--text);
-}
-.realsowix-box .details p {
-  font-size: 14px;
-}
-.realsowix-box .details span {
-  font-weight: bold;
-  font-size: 18px;
-}
+    .realsowix-box {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      color: var(--text);
+    }
+    .realsowix-box img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 3px solid var(--text);
+    }
+    .realsowix-box h3 {
+      color: #00ff88;
+      margin-bottom: 10px;
+    }
+    .realsowix-box .details {
+      display: flex;
+      gap: 25px;
+      flex-wrap: wrap;
+      color: var(--text);
+    }
+    .realsowix-box .details p {
+      font-size: 14px;
+    }
+    .realsowix-box .details span {
+      font-weight: bold;
+      font-size: 18px;
+    }
 
-.rainbow {
-  background: var(--rainbow);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-weight: bold;
-}
+    .rainbow {
+      background: var(--rainbow);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: bold;
+    }
 
-audio {
-  display: block;
-  margin: 20px auto;
-}
-
+    audio {
+      display: block;
+      margin: 20px auto;
+    }
   </style>
 </head>
-<body><script>
+<body>
+<script>
   if (!localStorage.getItem("girisYapildi")) {
     window.location.href = "index.html";
   }
@@ -260,14 +261,16 @@ audio {
       localStorage.setItem('tema', 'dark');
     }
   }
-</script><div class="menu-toggle-container" id="menuBtn">
+</script>
+<div class="menu-toggle-container" id="menuBtn">
   <i class="fas fa-bars"></i>
   <span>Panel</span>
   <label class="toggle-switch" title="Dark/Light Modu Değiştir">
     <input type="checkbox" id="temaToggle" onchange="temaDegistir(this)" />
     <span class="slider"></span>
   </label>
-</div><div class="sidebar" id="sidebar">
+</div>
+<div class="sidebar" id="sidebar">
   <div class="section-title">MENU</div>
   <ul class="menu">
     <li><a href="#">Ana Sayfa</a></li>
@@ -281,7 +284,8 @@ audio {
     </ul>
   </ul>
   <div class="logout" onclick="cikisYap()">Çıkış Yap</div>
-</div><div class="panel" id="panel">
+</div>
+<div class="panel" id="panel">
   <div class="card">
     <h3>Sistem Durumu</h3>
     <div style="display: flex; overflow-x: auto; gap: 15px;">
@@ -294,7 +298,8 @@ audio {
         <p>Her şey yolunda</p>
       </div>
     </div>
-  </div>  <div class="realsowix-box">
+  </div>
+  <div class="realsowix-box">
     <img src="images/mcqueen.jpg" alt="leodrown" />
     <div>
       <h3>leodrown</h3>
@@ -305,7 +310,8 @@ audio {
         <p>Üyelik tipi: <span class="rainbow">Premium</span></p>
       </div>
     </div>
-  </div>  <div class="stat-card">
+  </div>
+  <div class="stat-card">
     <p class="stat-title"><i class="fas fa-users" style="margin-right: 8px; color: #00ff88;"></i>Kullanıcı sayısı</p>
     <p class="stat-number">1</p>
   </div>
@@ -321,7 +327,8 @@ audio {
     <source src="organize.mp3" type="audio/mpeg" />
     Tarayıcınız audio etiketini desteklemiyor.
   </audio>
-</div><script>
+</div>
+<script>
   const menuBtn = document.getElementById("menuBtn");
   const sidebar = document.getElementById("sidebar");
   menuBtn.addEventListener("click", () => {
@@ -354,5 +361,6 @@ audio {
     const temaToggle = document.getElementById('temaToggle');
     temaToggle.checked = document.body.classList.contains('light');
   });
-</script></body>
+</script>
+</body>
 </html>
