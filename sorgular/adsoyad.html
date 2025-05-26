@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Ad Soyad Sorgulama</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: "Segoe UI", sans-serif;
+      background: #121212;
+      color: white;
+    }
+
+    .container {
+      max-width: 100%;
+      margin: auto;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    input, button {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    input {
+      background: #2c2c3c;
+      color: white;
+    }
+
+    button {
+      background: #4b9ce2;
+      color: white;
+      cursor: pointer;
+    }
+
+    .scroll-container {
+      overflow-x: auto;
+      background: #1e1e2f;
+      border-radius: 8px;
+      padding: 10px;
+    }
+
+    table {
+      width: max-content;
+      border-collapse: collapse;
+      color: white;
+      font-size: 14px;
+    }
+
+    th, td {
+      padding: 8px 15px;
+      border-bottom: 1px solid #444;
+      white-space: nowrap;
+    }
+
+    th {
+      background: #2d2d4a;
+      color: #ccc;
+      text-align: left;
+    }
+
+    tr:hover {
+      background: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Ad Soyad Sorgulama</h2>
+    <input type="text" id="ad" placeholder="Ad">
+    <input type="text" id="soyad" placeholder="Soyad">
+    <button onclick="sorgula()">Sorgula</button>
+
+    <div class="scroll-container">
+      <table id="sonuc-tablosu">
+        <thead>
+          <tr>
+            <th>KimlikNumarası</th>
+            <th>Adı</th>
+            <th>Soyadı</th>
+            <th>DoğumTarihi</th>
+            <th>AnneAdı</th>
+            <th>AnneTC</th>
+            <th>BabaAdı</th>
+            <th>BabaTC</th>
+            <th>MEMLEKETİL</th>
+            <th>MEMLEKETİLCE</th>
+            <th>UYRUK</th>
+          </tr>
+        </thead>
+        <tbody id="sonuc-body">
+          <!-- Veriler buraya eklenecek -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    function sorgula() {
+      const ad = document.getElementById("ad").value.trim();
+      const soyad = document.getElementById("soyad").value.trim();
+      const url = `https://api.allorigins.win/get?url=${encodeURIComponent(`https://api.hexnox.pro/sowixapi/adsoyadilice.php?ad=${ad}&soyad=${soyad}`)}`;
+
+      const tbody = document.getElementById("sonuc-body");
+      tbody.innerHTML = "<tr><td colspan='11'>Yükleniyor...</td></tr>";
+
+      fetch(url)
+        .then(res => res.json())
+        .then(data => {
+          const json = JSON.parse(data.contents);
+          if (json.success && json.data.length > 0) {
+            let rows = "";
+            json.data.forEach(item => {
+              rows += `
+                <tr>
+                  <td>${item.TC}</td>
+                  <td>${item.AD}</td>
+                  <td>${item.SOYAD}</td>
+                  <td>${item.DOGUMTARIHI}</td>
+                  <td>${item.ANNEADI}</td>
+                  <td>${item.ANNETC}</td>
+                  <td>${item.BABAADI}</td>
+                  <td>${item.BABATC}</td>
+                  <td>${item.MEMLEKETIL}</td>
+                  <td>${item.MEMLEKETILCE}</td>
+                  <td>TR</td>
+                </tr>`;
+            });
+            tbody.innerHTML = rows;
+          } else {
+            tbody.innerHTML = "<tr><td colspan='11'>Kayıt bulunamadı.</td></tr>";
+          }
+        })
+        .catch(err => {
+          console.error(err);
+          tbody.innerHTML = "<tr><td colspan='11'>Sorgulama sırasında hata oluştu.</td></tr>";
+        });
+    }
+  </script>
+</body>
+</html>
