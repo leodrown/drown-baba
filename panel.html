@@ -294,18 +294,18 @@
     </div>
   </div>
   
-  <div class="realsowix-box">
-    <img src="images/mcqueen.jpg" alt="leodrown" />
-    <div>
-      <h3>leodrown</h3>
-      <p id="realsowix-msg" style="color:#bbbafc; font-size: 16px; margin-bottom: 10px;"></p>
-      <div class="details">
-        <p>Sorgu sayısı: <span>log tutulmuyor</span></p>
-        <p>Kalan gün: <span>sınırsız</span></p>
-        <p>Üyelik tipi: <span class="rainbow">Premium</span></p>
-      </div>
+<div class="realsowix-box">
+  <img src="images/mcqueen.jpg" alt="leodrown" />
+  <div>
+    <h3 id="username">leodrown</h3> <!-- Buraya id ekledik -->
+    <p id="realsowix-msg" style="color:#bbbafc; font-size: 16px; margin-bottom: 10px;"></p>
+    <div class="details">
+      <p>Sorgu sayısı: <span>log tutulmuyor</span></p>
+      <p>Kalan gün: <span>sınırsız</span></p>
+      <p>Üyelik tipi: <span id="userType" class="rainbow">Premium</span></p> <!-- Buraya da id ekledik -->
     </div>
   </div>
+</div>
   
   <div class="stat-card">
     <p class="stat-title"><i class="fas fa-users" style="margin-right: 8px; color: #00ff88;"></i>Kullanıcı sayısı</p>
@@ -366,6 +366,17 @@
   // Tema toggle checkbox durumunu başlangıçta ayarla
   document.getElementById('temaToggle').checked = document.body.classList.contains('light');
 </script>
+  
+<script>
+  // mevcut tüm script kodların burda
+  // ...
 
+  // kullanıcı bilgilerini localStorage'dan alıp yazdıran kısım:
+  const kullaniciAdi = localStorage.getItem('kullaniciAdi') || 'leodrown';
+  const uyelikTipi = localStorage.getItem('uyelikTipi') || 'Premium';
+
+  document.getElementById('username').textContent = kullaniciAdi;
+  document.getElementById('userType').textContent = uyelikTipi;
+</script>
 </body>
 </html>
