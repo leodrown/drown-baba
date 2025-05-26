@@ -1,10 +1,12 @@
-<!DOCTYPE html><html lang="tr">
+<!DOCTYPE html>
+<html lang="tr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Panel</title>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
   <style>
+    /* Stil kodları aynen kalacak, silme */
     * {
       margin: 0; padding: 0; box-sizing: border-box;
       transition: background-color 0.4s ease, color 0.4s ease;
@@ -42,7 +44,6 @@
       0% { opacity: 0; transform: translateY(30px); }
       100% { opacity: 1; transform: translateY(0); }
     }
-
     .menu-toggle-container {
       position: fixed;
       top: 20px;
@@ -60,7 +61,6 @@
       font-weight: 600;
       user-select: none;
     }
-
     .toggle-switch {
       margin-left: 10px;
       position: relative;
@@ -97,7 +97,6 @@
     input:checked + .slider:before {
       transform: translateX(24px);
     }
-
     .sidebar {
       width: 280px;
       background: var(--sidebar-bg);
@@ -154,12 +153,10 @@
       cursor: pointer;
     }
     .logout:hover { background: var(--logout-hover); }
-
     .panel {
       padding: 100px 20px 20px 20px;
       z-index: 1;
     }
-
     .card,
     .stat-card,
     .realsowix-box {
@@ -173,19 +170,16 @@
       animation: slideIn 0.8s ease forwards;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-
     .card:hover,
     .stat-card:hover,
     .realsowix-box:hover {
       transform: translateY(-5px);
       box-shadow: 0 0 20px var(--card-shadow);
     }
-
     .card h3, .card p {
       color: var(--accent);
       font-size: 15px;
     }
-
     .stat-card {
       display: flex;
       justify-content: space-between;
@@ -200,7 +194,6 @@
       font-size: 26px;
       font-weight: bold;
     }
-
     .realsowix-box {
       display: flex;
       gap: 20px;
@@ -230,14 +223,12 @@
       font-weight: bold;
       font-size: 18px;
     }
-
     .rainbow {
       background: var(--rainbow);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       font-weight: bold;
     }
-
     audio {
       display: block;
       margin: 20px auto;
@@ -262,6 +253,7 @@
     }
   }
 </script>
+
 <div class="menu-toggle-container" id="menuBtn">
   <i class="fas fa-bars"></i>
   <span>Panel</span>
@@ -270,21 +262,23 @@
     <span class="slider"></span>
   </label>
 </div>
+
 <div class="sidebar" id="sidebar">
   <div class="section-title">MENU</div>
   <ul class="menu">
-    <li><a href="#">Ana Sayfa</a></li>
-    <li><a href="#">Instagram</a></li>
+    <li><a href="panel.html">Ana Sayfa</a></li>
+    <li><a href="https://www.instagram.com/leo.drown" target="_blank" rel="noopener noreferrer">Instagram</a></li>
   </ul>
   <div class="section-title">KİŞİ</div>
   <ul class="menu">
     <li class="dropdown-toggle" onclick="toggleDropdown()">Kişi <span class="arrow">&#9662;</span></li>
     <ul id="dropdown" class="dropdown">
-      <li><a href="#">Ad Soyad Sorgu</a></li>
+      <li><a href="sorgular/adsoyad.html">Ad Soyad Sorgu</a></li>
     </ul>
   </ul>
   <div class="logout" onclick="cikisYap()">Çıkış Yap</div>
 </div>
+
 <div class="panel" id="panel">
   <div class="card">
     <h3>Sistem Durumu</h3>
@@ -299,6 +293,7 @@
       </div>
     </div>
   </div>
+  
   <div class="realsowix-box">
     <img src="images/mcqueen.jpg" alt="leodrown" />
     <div>
@@ -311,23 +306,28 @@
       </div>
     </div>
   </div>
+  
   <div class="stat-card">
     <p class="stat-title"><i class="fas fa-users" style="margin-right: 8px; color: #00ff88;"></i>Kullanıcı sayısı</p>
     <p class="stat-number">1</p>
   </div>
+  
   <div class="stat-card">
     <p class="stat-title"><i class="fas fa-star" style="margin-right: 8px; color: gold;"></i>Premium sayısı</p>
     <p class="stat-number">1</p>
   </div>
+  
   <div class="stat-card">
     <p class="stat-title"><i class="fas fa-ban" style="margin-right: 8px; color: red;"></i>Banlı kullanıcı sayısı</p>
     <p class="stat-number">0</p>
   </div>
+  
   <audio autoplay loop controls>
     <source src="organize.mp3" type="audio/mpeg" />
     Tarayıcınız audio etiketini desteklemiyor.
   </audio>
 </div>
+
 <script>
   const menuBtn = document.getElementById("menuBtn");
   const sidebar = document.getElementById("sidebar");
@@ -348,19 +348,24 @@
   }
 
   const mesajlar = [
-    "Biz yapay zekayız kardeş, gerizekalı değiliz",
-    "Komut ver yeter, işi biz hallederiz",
-    "Kod bizim dilimizdir",
-    "Zekamız sistemlere yön verir",
-    "Her şey bizim kontrolümüzde"
+    "Biz yapay zekayız kardeş, gerisi kolay!",
+    "Adana gibi sıcağız, burası da sıcacık panel.",
+    "Takıl kafanı yorma, biz buradayız!",
+    "Bugün de kodlar akıyor, sen de takipte kal!"
   ];
-  const randomIndex = Math.floor(Math.random() * mesajlar.length);
-  document.getElementById("realsowix-msg").textContent = mesajlar[randomIndex];
 
-  window.addEventListener('DOMContentLoaded', () => {
-    const temaToggle = document.getElementById('temaToggle');
-    temaToggle.checked = document.body.classList.contains('light');
-  });
+  let index = 0;
+  const msgElement = document.getElementById("realsowix-msg");
+  function mesajGoster() {
+    msgElement.textContent = mesajlar[index];
+    index = (index + 1) % mesajlar.length;
+  }
+  mesajGoster();
+  setInterval(mesajGoster, 4000);
+
+  // Tema toggle checkbox durumunu başlangıçta ayarla
+  document.getElementById('temaToggle').checked = document.body.classList.contains('light');
 </script>
+
 </body>
 </html>
